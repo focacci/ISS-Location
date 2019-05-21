@@ -1,22 +1,21 @@
 var map
 
-
 function createMap() {
+  mapboxgl.accessToken = 'pk.eyJ1Ijoibm92YWJsYWRlIiwiYSI6ImNqbzdubXBwMjB2bmszcG9iNnV1YWl3dG4ifQ.PS1GDEGCO_LqjRGcIkyfIw'
   map = new mapboxgl.Map({
-  container: 'map',
+  container: "map",
   center: getCoordinates(),
   zoom: 13,
-  style: style_object,
-  hash: true
-  };
+  style: 'mapbox://styles/mapbox/satellite-v9'
+  });
 }
 
 
 function getCoordinates() {
-  ajaxGetRequest("/iss-location", updateCoordinates)
+  ajaxGetRequest("/iss-location", coordinates)
 }
 
-function updateCoordinates(data) {
+function coordinates(data) {
   return JSON.parse(data);
 }
 
