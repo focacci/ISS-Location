@@ -1,23 +1,24 @@
-var map
+function init() {
+  ajaxGetRequest("issLocation", loadMap);
+}
 
-function createMap() {
-  mapboxgl.accessToken = 'pk.eyJ1Ijoibm92YWJsYWRlIiwiYSI6ImNqbzdubXBwMjB2bmszcG9iNnV1YWl3dG4ifQ.PS1GDEGCO_LqjRGcIkyfIw'
-  map = new mapboxgl.Map({
-  container: "map",
-  center: getCoordinates(),
-  zoom: 13,
-  style: 'mapbox://styles/mapbox/satellite-v9'
+
+function loadMap(location) {
+  mapboxgl.accessToken = 'pk.eyJ1Ijoibm92YWJsYWRlIiwiYSI6ImNqbzdubXBwMjB2bmszcG9iNnV1YWl3dG4ifQ.PS1GDEGCO_LqjRGcIkyfIw';
+
+  const center = JSON.parse(location);
+
+  console.log(center);
+  var map = new mapboxgl.Map({
+    container: "map",
+    center: center,
+    zoom: 2,
+    style: 'mapbox://styles/mapbox/satellite-v9'
   });
+  var marker = new mapboxgl.Marker()
+  marker.setLngLat(center).addTo(map);
 }
 
-
-function getCoordinates() {
-  ajaxGetRequest("/iss-location", coordinates)
-}
-
-function coordinates(data) {
-  return JSON.parse(data);
-}
 
 
 function ajaxGetRequest(path, callback) {
@@ -26,7 +27,12 @@ function ajaxGetRequest(path, callback) {
     if (this.readyState === 4 && this.status === 200) {
       callback(this.response);
     }
+  };
   request.open("GET", path);
   request.send();
-  }
+}
+
+
+function test() {
+  console.log("Js received");
 }

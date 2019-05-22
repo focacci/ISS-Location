@@ -6,8 +6,9 @@ def getIssLocation():
     #print(data)
     #return location["iss_postition"]
     #print(data)
-    position = json.loads(data)["iss_position"]
-    data = [double(position["latitude"]), double(position["longitude"])]
-    return json.dumps(data)
+    data = json.loads(req)
+    position = data["iss_position"]
+    send = [float(position["longitude"]), float(position["latitude"])]
+    return json.dumps(send)
 
 #getIssLocation()
